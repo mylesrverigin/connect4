@@ -23,9 +23,11 @@ class Connect4 {
         // places a piece onto board 
         // col is col to insert into
         // marker is what chart to insert 
+        // if rowidx == -1 means not valid move return false
         let rowIdx = this.rowtoPlace(col);
         if (rowIdx > -1){
             this.board[rowIdx][col] = marker;
+            return true
         }else {
             return false
         }
@@ -107,7 +109,8 @@ class Connect4 {
     }
 
     diagWin = () => {
-        // if 4 values line up diagonally 
+        // if 4 values line up diagonally
+
     }
 
 }
