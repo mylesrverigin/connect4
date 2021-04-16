@@ -16,7 +16,8 @@ export class App extends Component {
 
   state = {
     board:[],
-    id:false
+    id:false,
+    winner:false
   }
 
   testemit = () => { //will remain Unused just an example  
@@ -43,14 +44,20 @@ export class App extends Component {
 
   componentDidMount() {
     // this just gets the messages the server sends when we connect 
-    this.socket.on('message', message => {
-      console.log(message)
+    this.socket.on('join', data => {
+      // this gets us intial board state
+      let {board, iswin} = JSON.parse(data)
+      this.setState({
+        board:[...board],
+        winner:iswin
+      })
     })
     // this listener is for boardupdates emits ( this is where we will get the updated board ) 
     this.socket.on('boardupdate', data => {
-      let board = JSON.parse(data)
+      let {board, iswin} = JSON.parse(data)
       this.setState({
-        board:[...board]
+        board:[...board],
+        winner:iswin
       })
       console.log(this.state.board)
     })

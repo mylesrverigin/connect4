@@ -63,6 +63,7 @@ class Connect4 {
         // checks if any win conditions exist
         if (this.rowWin()){return true}
         if (this.colWin()){return true}
+        if (this.diagWin()){return true}
         return false
     }
 
@@ -110,7 +111,68 @@ class Connect4 {
 
     diagWin = () => {
         // if 4 values line up diagonally
-
+        let condition = false
+        // left to right scan down 
+        for (let i=0; i<this.board.length;i++){
+            let y = i;
+            let x = 0;
+            let diagValues = []
+            while (y < this.board.length && x < this.board[0].length){
+                diagValues.push(this.board[y][x])
+                y ++ 
+                x ++ 
+            }
+            if (this.consecutiveCheck(diagValues)){
+                condition = true;
+                break;
+            }
+        }
+        // left to right can up
+        for (let i=0;i<this.board[0].length;i++){
+            let x = i;
+            let y = 0;
+            let diagValues = []
+            while (y < this.board.length && x < this.board[0].length){
+                diagValues.push(this.board[y][x])
+                y++
+                x++
+            }
+            if (this.consecutiveCheck(diagValues)){
+                condition = true;
+                break;
+            }
+        }
+        // right to left scan down 
+        for (let i=0; i<this.board.length;i++){
+            let y = i;
+            let x = this.board[0].length-1;
+            let diagValues = []
+            while (y < this.board.length && x >= 0){
+                diagValues.push(this.board[y][x])
+                y ++ 
+                x --
+            }
+            if (this.consecutiveCheck(diagValues)){
+                condition = true;
+                break;
+            }
+        }
+        // right to left scan up
+        for (let i=this.board[0].length-1;i>=0;i--){
+            let x = i;
+            let y = 0;
+            let diagValues = []
+            while (y < this.board.length && x >= 0){
+                diagValues.push(this.board[y][x])
+                y++
+                x--
+            }
+            if (this.consecutiveCheck(diagValues)){
+                condition = true;
+                break;
+            }
+        }
+        return condition
     }
 
 }

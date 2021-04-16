@@ -17,23 +17,28 @@ const Game = require('./logic/connect4');
 game = new Game()
 
 let players = []
+let win = false
 
-//// test data
+//// test board 
+game.placePiece('F', 0)
 game.placePiece('X', 1)
-game.placePiece('X', 2)
-game.placePiece('O', 3)
-game.placePiece('X', 4)
+game.placePiece('F', 2)
 game.placePiece('X', 3)
-game.placePiece('X', 3)
+game.placePiece('F', 4)
+game.placePiece('X', 5)
+
+
 console.log('t', game.isWin())
 
 io.on('connection', socket => {
   console.log('NEW connection')// id to use socket.handshake.auth
   // socket.broadcast.emit sends to everybody but the user 
-  socket.broadcast.emit('message', 'someone joined')
+  // socket.broadcast.emit('boardupdate','some joined')
 
   // socket.emit sends to only who connects
-  socket.emit('message', 'you joined')
+  socket.emit('join', JSON.stringify({
+    board: game.returnBoard(),
+    iswin: win}))
 
   socket.on('disconnect', () => {
     console.log('disconnect')
@@ -43,20 +48,28 @@ io.on('connection', socket => {
 
   // listen for test function 
   socket.on('test', (payload) => {
-    console.log(JSON.parse(payload).test)
+    // console.log(JSON.parse(payload).test)
     io.emit('boardupdate', JSON.stringify(game.returnBoard()))
   })
 
-  // listen for test function 
+  // listen for placepiece function 
   socket.on('placepiece', (payload) => {
-    let move = parseInt(JSON.parse(payload).move)
-    console.log('move',move)
-    game.placePiece('X',move) // check if valid move here 
-    io.emit('boardupdate', JSON.stringify(game.returnBoard()))
+    if (win) { return }
+    let { move, id } = JSON.parse(payload)
+    move = parseInt(move)
+    // check if valid move here 
+    if (game.placePiece(id, move)) {
+      win = game.isWin() ? id : false
+      io.emit('boardupdate', JSON.stringify({
+        board: game.returnBoard(),
+        iswin: win
+      }))
+    }
+
   })
 
   // listen for player que
-  socket.on('addplayer',()=>{
+  socket.on('addplayer', () => {
     // keep it simple id will just be player idx
     let id = players.length + 1
     players.push(id)
@@ -64,11 +77,15 @@ io.on('connection', socket => {
     socket.emit('id', id)
   })
 
-  socket.on('newgame', ()=>{
+  socket.on('newgame', () => {
     players = []
+    win = false
     game.newGame()
-    io.emit('idwipe',true)
-    io.emit('boardupdate', JSON.stringify(game.returnBoard()))
+    io.emit('idwipe', true)
+    io.emit('boardupdate', JSON.stringify({
+      board: game.returnBoard(),
+      iswin: win
+    }))
   })
 })
 
