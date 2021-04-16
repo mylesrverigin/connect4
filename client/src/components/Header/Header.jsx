@@ -4,7 +4,7 @@ import './Header.scss'
 function Header() {
     return (
         <header className="header">
-            <h2 className="header__title">Connect 4</h2>
+            <h2 className="header__title">Team[0] Connect_4</h2>
         </header>
     )
 }

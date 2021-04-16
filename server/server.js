@@ -19,17 +19,6 @@ game = new Game()
 let players = []
 let win = false
 
-//// test board 
-game.placePiece('F', 0)
-game.placePiece('X', 1)
-game.placePiece('F', 2)
-game.placePiece('X', 3)
-game.placePiece('F', 4)
-game.placePiece('X', 5)
-
-
-console.log('t', game.isWin())
-
 io.on('connection', socket => {
   console.log('NEW connection')// id to use socket.handshake.auth
   // socket.broadcast.emit sends to everybody but the user 
