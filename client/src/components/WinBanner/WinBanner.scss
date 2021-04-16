@@ -12,7 +12,18 @@
         font-size: 5rem;
     }
 
+    &__title--dark-mode{
+        color: white;
+    }
+
     &__image{
         border-radius: 50%;
+    }
+}
+
+.dark-mode{
+
+    #title{
+        color: white;
     }
 }

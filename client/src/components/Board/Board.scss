@@ -1,6 +1,5 @@
 @use '../../partials/variables' as *;
 
-
 .board{
     width: 50%;
     height: fit-content;
@@ -12,8 +11,10 @@
     margin-top: 10rem;
     margin-bottom: 10rem;
 
-    &__title{
-        font-size: 5rem;
+    &__image{
+        width: 10rem;
+        border-radius: 50%;
+        margin-bottom: 2rem;
     }
 
     .row{
@@ -35,5 +36,17 @@
             height: 100%;
             border-radius: 50%;
         }
+    }
+}
+
+.dark-mode{
+    background-color: $dark-mode-background;
+
+    .row{
+        border: 3px solid $dark-mode-blue;
+    }
+
+    .square{
+        border: 3px solid $dark-mode-blue;
     }
 }

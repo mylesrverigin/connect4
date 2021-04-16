@@ -26,6 +26,7 @@ export class App extends Component {
   state = {
     board:[],
     id: false,
+    darkMode: true,
     winner: false,
     images: [TA_Img_1, TA_Img_2, TA_Img_3, TA_Img_4, TA_Img_5]
   }
@@ -36,8 +37,11 @@ export class App extends Component {
     this.socket.emit('test', JSON.stringify({ test: 'DATA' }))
   }
 
-  winBanner = () => {
-
+  darkModeActivate = () => {
+    this.setState({
+      darkMode: !this.state.darkMode
+    })
+    console.log('Dark mode hit')
   }
 
   placePiece = (column) => {
@@ -101,10 +105,16 @@ export class App extends Component {
         images={this.state.images}
         board={this.state.board}
         cellListener={this.cellListener}
+        darkMode={this.state.darkMode ? "dark-mode" : ''}
+        id={this.state.id}
         />
       )
     }else{
-        return <WinBanner image={this.state.images[this.state.winner]}/>
+        return (
+        <WinBanner 
+        image={this.state.images[this.state.winner % 5]}
+        darkMode={this.state.darkMode ? 'dark-mode' : ''}
+        />)
     }
   }
 
@@ -112,12 +122,14 @@ export class App extends Component {
 
     return (
       <>
-        <Header/>
-        <div className="play-ui">
+        <Header darkMode={this.state.darkMode ? 'dark-mode' : ''}/>
+        <div className={`play-ui ${this.state.darkMode ? 'dark-mode' : ''}`}>
           {this.displayWinBanner()}
           <ControlPanel
             playGame={this.playGame}
             newGame={this.newGame}
+            darkModeActivate={this.darkModeActivate}
+            darkMode={this.state.darkMode ? 'dark-mode' : ''}
           />
         </div>
       </>

@@ -25,3 +25,22 @@
         }
     }
 }
+
+.dark-mode{
+    background-color: $dark-mode-background;
+
+    &__button{
+        border: 3px solid $dark-mode-blue;
+        font-size: 2rem;
+        font-weight: 600;
+        background-color: $dark-mode-background !important;
+        color: $dark-mode-blue;
+        margin-top: 5rem;
+
+        &:hover{
+            border: none;
+            background-color: $dark-mode-blue;
+            color: $dark-mode-background;
+        }
+    }
+}
