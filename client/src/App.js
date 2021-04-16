@@ -13,16 +13,38 @@ export class App extends Component {
       "my-key": "my-value"
     }
   })
-  
-  render() {
-    // this just gets the message the server sends when we connect 
-    this.socket.on('message',message =>{
+
+  state = {
+    test:[]
+  }
+
+  testemit = () => {
+    // running this sends data to server 
+    // replace "{ }" with the data
+    this.socket.emit('test', JSON.stringify({ test: 'DATA' }))
+  }
+
+  componentDidMount() {
+    // this just gets the messages the server sends when we connect 
+    this.socket.on('message', message => {
       console.log(message)
     })
+    // this listener is for data emits ( this is where we will get the updated board ) 
+    this.socket.on('data', data => {
+      this.setState({
+        test:[...this.state.test,data]
+      })
+    })
     ////
+  }
+
+  render() {
+
     return (
       <div className="App">
         HELLO WORLD
+        <button onClick={this.testemit}>TEST</button>
+        {this.state.test}
       </div>
     );
   }

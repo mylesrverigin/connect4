@@ -11,6 +11,18 @@ const io = socketio(server,{
     }
   })
 
+
+// game things 
+const Game = require('./logic/connect4');
+game = new Game()
+game.placePiece('X',1)
+game.placePiece('X',1)
+game.placePiece('X',2)
+game.placePiece('X',2)
+game.placePiece('X',3)
+game.placePiece('X',3)
+console.log('t',game.isWin())
+
 io.on('connection', socket =>{
     console.log('NEW connection')// id to use socket.handshake.auth
     // socket.broadcast.emit sends to everybody but the user 
@@ -23,6 +35,12 @@ io.on('connection', socket =>{
         console.log('disconnect')
         // message to everybody io.emit()
         io.emit('message','Someone Left')  
+    })
+
+    // listen for test function 
+    socket.on('test',(payload)=>{
+        console.log(JSON.parse(payload).test)
+        io.emit('data',JSON.stringify(game.returnBoard()))
     })
 })
 
