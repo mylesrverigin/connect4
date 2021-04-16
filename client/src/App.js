@@ -1,6 +1,9 @@
 import './App.css';
-import io from 'socket.io-client'
-import React, { Component } from 'react'
+import io from 'socket.io-client';
+import React, { Component } from 'react';
+import Board from './components/Board/Board';
+import Header from './components/Header/Header'
+import ControlPanel from './components/ControlPanel/ControlPanel';
 
 export class App extends Component {
   // this connects us to the server 
@@ -41,13 +44,20 @@ export class App extends Component {
   render() {
 
     return (
-      <div className="App">
-        HELLO WORLD
-        <button onClick={this.testemit}>TEST</button>
-        {this.state.test}
-      </div>
+      <>
+        <Header/>
+        <div className="play-ui">
+          <Board/>
+          <ControlPanel/>
+        </div>
+      </>
     );
   }
 }
 
 export default App;
+/* <div className="App">
+//   HELLO WORLD
+//   <button onClick={this.testemit}>TEST</button>
+//   {this.state.test}
+</div>*/
