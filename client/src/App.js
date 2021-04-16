@@ -18,7 +18,10 @@ export class App extends Component {
   })
 
   state = {
-    test:[]
+    test:[],
+    playerID: null,
+    isWinID: null,
+    board: [[[]], [[]], [[]], [[]], [[]], [[]]]
   }
 
   testemit = () => {
@@ -47,7 +50,7 @@ export class App extends Component {
       <>
         <Header/>
         <div className="play-ui">
-          <Board/>
+          <Board board={this.state.board}/>{/*needs to take board state and update based on what number has changed*/}
           <ControlPanel/>
         </div>
       </>
