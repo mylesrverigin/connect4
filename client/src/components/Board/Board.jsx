@@ -1,64 +1,24 @@
 import React, { Component } from 'react';
-import './Board.scss'
+import './Board.scss';
+import Cell from '../Cell/Cell';
 
 class Board extends Component {
+    images = this.props.images
     render() {
         return (
             <div className="board">
-                <div className="row">
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                </div>
-                <div className="row">
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                </div>
-                <div className="row">
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                </div>
-                <div className="row">
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                </div>
-                <div className="row">
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                </div>
-                <div className="row">
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                    <div className="square"></div>
-                </div>
+                {this.props.board.map(row => {
+                    return (
+                    <div className="row">
+                        {row.map((val, index) => {
+                            return <Cell 
+                                column={index}
+                                cellListener={this.props.cellListener}
+                                token={this.images[val === false ? '' : val % 5]}
+                            />
+                        })}
+                    </div>)
+                })}
             </div>
         )
     }

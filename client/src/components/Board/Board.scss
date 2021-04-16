@@ -10,6 +10,7 @@
     flex-direction: column;
     font-family: sans-serif;
     margin-top: 10rem;
+    margin-bottom: 10rem;
 
     &__title{
         font-size: 5rem;
@@ -26,5 +27,13 @@
         width: 7rem;
         height: 100%;
         border: 3px solid $connect-blue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__image{
+            height: 100%;
+            border-radius: 50%;
+        }
     }
 }
