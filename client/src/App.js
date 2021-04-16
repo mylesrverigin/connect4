@@ -27,7 +27,7 @@ export class App extends Component {
 
   testplacepiece = () => {
     if (!this.state.id){ return }
-    this.socket.emit('placepiece', JSON.stringify({ move: this.state.id }))
+    this.socket.emit('placepiece', JSON.stringify({ move: this.state.id , id:this.state.id}))
   }
 
   testplaygame = () => {
