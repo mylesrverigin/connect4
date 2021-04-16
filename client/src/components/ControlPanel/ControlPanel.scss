@@ -1,0 +1,27 @@
+@use '../../partials/variables' as *;
+
+.control-panel{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    &__button{
+        width: 15rem;
+        height: 5rem;
+        border: 3px solid $connect-blue;
+        border-radius: 5px;
+        font-size: 2rem;
+        font-weight: 600;
+        background-color: white;
+        color: $connect-blue;
+        margin-top: 10rem;
+
+        &:hover{
+            border: none;
+            background-color: $connect-blue;
+            color: white;
+        }
+    }
+}

@@ -1,0 +1,30 @@
+@use '../../partials/variables' as *;
+
+
+.board{
+    width: 50%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: sans-serif;
+    margin-top: 10rem;
+
+    &__title{
+        font-size: 5rem;
+    }
+
+    .row{
+        display: flex;
+        height: 7rem;
+        width: fit-content;
+        border: 3px solid $connect-blue;
+    }
+
+    .square{
+        width: 7rem;
+        height: 100%;
+        border: 3px solid $connect-blue;
+    }
+}
